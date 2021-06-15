@@ -1,0 +1,5 @@
+name: JShader
+version: @version@
+main: me.lorenzo0111.js.JShader
+description: Shade JavaScript engine inside your minecraft server
+api-version: 1.13
