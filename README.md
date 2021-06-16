@@ -4,6 +4,9 @@
   <a href="https://github.com/Lorenzo0111/RocketPlaceholders/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
+  <a href="https://discord.io/RocketPlugins" target="_blank">
+    <img alt="Discord" src="https://img.shields.io/discord/737993529795674182?label=Discord" />
+  </a>
 </p>
 
 > Shade JavaScript engine in spigot servers
