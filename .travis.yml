@@ -3,5 +3,14 @@ jdk: [openjdk16]
 dist: xenial
 os: linux
 install: skip
+addons:
+  sonarcloud:
+    organization: "lorenzo0111"
+    token:
+      secure: "vNNaL9iRmSv6HyU2bJHn8h9GomXVg1/qi8ti4Lq/Dil/aeG/5rkMj+TCF5PkPOkEBW67cb7cNTGjPFuVs90szutKHSO7fM8XXN8+L6sJU7ZPy8UDbaOJzjeT+NGSmEQTdieJHF+L3l3H5
+      yD1+YxbJnAtDYGZu+dlN87rBYiRg0ynFaeORe0oCO6a67S++g0oIAi4PV5Y03se39taeJlhhT2VxwtM7ZzUjNVknVwxDcLaTVArdKualXycSTkyJ3H87UvXEnHrcUOOOtoPxiTgL+gP3TySli9s9JqbH
+      l0vVvCwWiqWFqVIUCpzYuARkXLY35+jUWhhCLziKS4I+CIPoaDWdFMdvUsRo+nItRHq5xrJaCbxZpZ6ZM1kC36dneobCRN1s8Ya/Kcjs0W0QZG69DL/B4k6+4fJK6brPc3mqKOErdkwgeZ/cimPqRvmr
+      4CSBEzA7eGN0WQSY4bNkrbUVWYtTl+mmVAFeqOaVsT5ii7hLP9GPGAIp75oC9NkTckSXCy9EZiIQTdJKHSvGjV7jpwLj3E5j+D3Y+ytbtrf86s4FIIvJd0n5YBFIihNuU25x3xHwXB91A8eW8Y8/wR7T
+      esFwkgrD9dVcsMxOJm6RBp8z3EcrcoqluTCLW45MXRMhax79sJUmoZZ74OoWwsyvu7eP6sR3cLNiVx9DITkq2Q="
 script:
-  - ./gradlew build
+  - ./gradlew sonarqube build
