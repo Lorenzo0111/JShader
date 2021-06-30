@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
     compileOnly('org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT')
-    implementation('org.openjdk.nashorn:nashorn-core:15.2')
+    implementation('org.openjdk.nashorn:nashorn-core:15.3')
 }
 
 sonarqube {
