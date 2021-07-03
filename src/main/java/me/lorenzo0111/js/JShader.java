@@ -52,7 +52,7 @@ public class JShader {
     }
 
     @Contract(value = "_ -> new", pure = true)
-    public static @NotNull JShader customInstance(JavaPlugin plugin) {
+    public static @NotNull JShader instance(JavaPlugin plugin) {
         return new JShader(plugin);
     }
 
@@ -96,6 +96,13 @@ public class JShader {
                 .shade(ScriptEngineManager.class, engine);
 
         return true;
+    }
+
+    public ShadeChecker getChecker(Class<?> clazz) {
+        return ShadeChecker.builder()
+                .plugin(plugin)
+                .checkClass(clazz)
+                .build();
     }
 
     public Shader getShader() {
