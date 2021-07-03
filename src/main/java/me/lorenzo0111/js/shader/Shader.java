@@ -27,10 +27,7 @@ package me.lorenzo0111.js.shader;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
-
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
+import org.jetbrains.annotations.NotNull;
 
 public class Shader {
     private final ServicesManager manager;
@@ -41,11 +38,8 @@ public class Shader {
         this.plugin = plugin;
     }
 
-    public void shade() {
-        ScriptEngineManager engine = new ScriptEngineManager();
-        ScriptEngineFactory factory = new NashornScriptEngineFactory();
-        engine.registerEngineName("JavaScript", factory);
-        manager.register(ScriptEngineManager.class, engine, plugin, ServicePriority.Highest);
+    public <T> void shade(@NotNull Class<T> service, @NotNull T provider) {
+        manager.register(service, provider, plugin, ServicePriority.Highest);
     }
 
     public static Builder builder() {

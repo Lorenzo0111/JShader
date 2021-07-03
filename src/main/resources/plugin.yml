@@ -1,5 +1,5 @@
 name: JShader
 version: @version@
-main: me.lorenzo0111.js.JShader
+main: me.lorenzo0111.js.plugin.JShaderPlugin
 description: Shade JavaScript engine inside your minecraft server
 api-version: 1.13

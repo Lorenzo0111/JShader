@@ -24,56 +24,84 @@
 
 package me.lorenzo0111.js;
 
+import me.lorenzo0111.js.plugin.JShaderPlugin;
 import me.lorenzo0111.js.shader.ShadeChecker;
 import me.lorenzo0111.js.shader.Shader;
 import me.lorenzo0111.js.utils.VersionUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
+import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
-public class JShader extends JavaPlugin {
+@SuppressWarnings("unused")
+public class JShader {
+    private static JShader instance;
+    private final JavaPlugin plugin;
 
-    @Override
-    public void onEnable() {
-        this.load();
+    private JShader(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
-    @Override
-    public void onDisable() {
-        this.getServer().getScheduler().cancelTasks(this);
+    public static @NotNull JShader instance() {
+        if (instance == null) instance = new JShader(JShaderPlugin.getInstance());
+
+        return instance;
     }
 
-    private void load() {
-        this.getLogger().info("Looking for Java Version...");
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull JShader customInstance(JavaPlugin plugin) {
+        return new JShader(plugin);
+    }
+
+    public void load() {
+        plugin.getLogger().info("Looking for Java Version...");
         boolean legacy = VersionUtil.isLegacy();
-        this.getLogger().info("    Java Version: " + VersionUtil.getVersion());
-        this.getLogger().info("    Legacy Java: " + legacy);
+        plugin.getLogger().info("    Java Version: " + VersionUtil.getVersion());
+        plugin.getLogger().info("    Legacy: " + legacy);
 
         if (legacy) {
-            this.getLogger().warning("You don't need to use this plugin because you are using a legacy java version.");
-            Bukkit.getPluginManager().disablePlugin(this);
+            plugin.getLogger().warning("You don't need to use this plugin because you are using a legacy java version.");
             return;
         }
 
-        this.getLogger().info("Checking if JavaScript engine is already shaded..");
+        plugin.getLogger().info("Checking if JavaScript engine is already shaded..");
+
+        if (!this.shadeOnly()) {
+            plugin.getLogger().info("JavaScript engine is already shaded.");
+            return;
+        }
+
+        plugin.getLogger().info("JavaScript engine shaded.");
+    }
+
+    public boolean shadeOnly() {
+        ScriptEngineManager engine = new ScriptEngineManager();
+        ScriptEngineFactory factory = new NashornScriptEngineFactory();
+        engine.registerEngineName("JavaScript", factory);
+
         boolean shaded = ShadeChecker.builder()
-                .plugin(this)
+                .plugin(plugin)
                 .checkClass(ScriptEngineManager.class)
                 .build()
                 .check();
 
         if (shaded) {
-            this.getLogger().info("JavaScript engine is already shaded.");
-            return;
+            return false;
         }
 
-        Shader.builder()
-                .plugin(this)
-                .build()
-                .shade();
+        this.getShader()
+                .shade(ScriptEngineManager.class, engine);
 
-        this.getLogger().info("JavaScript engine shaded.");
-
+        return true;
     }
+
+    public Shader getShader() {
+        return Shader.builder()
+                .plugin(plugin)
+                .build();
+    }
+
 }

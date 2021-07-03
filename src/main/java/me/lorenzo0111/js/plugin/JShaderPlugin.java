@@ -22,48 +22,27 @@
  * SOFTWARE.
  */
 
-import org.apache.tools.ant.filters.ReplaceTokens
+package me.lorenzo0111.js.plugin;
 
-plugins {
-    id 'java'
-    id "com.github.johnrengelman.shadow" version "7.0.0"
-    id "org.sonarqube" version "3.3"
-}
+import me.lorenzo0111.js.JShader;
+import org.bukkit.plugin.java.JavaPlugin;
 
-group = 'me.lorenzo0111'
-version = '1.2'
+public class JShaderPlugin extends JavaPlugin {
+    private static JShaderPlugin instance;
 
-repositories {
-    mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-}
+    @Override
+    public void onEnable() {
+        instance = this;
+        JShader.instance()
+                .load();
+    }
 
-dependencies {
-    compileOnly('org.jetbrains:annotations:20.1.0')
-    compileOnly('org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT')
-    implementation('org.openjdk.nashorn:nashorn-core:15.3')
-}
+    @Override
+    public void onDisable() {
+        this.getServer().getScheduler().cancelTasks(this);
+    }
 
-sonarqube {
-    properties {
-        property "sonar.projectKey", "Lorenzo0111_JShader"
+    public static JShaderPlugin getInstance() {
+        return instance;
     }
 }
-
-jar {
-    archiveFileName = "${project.name}.jar"
-}
-
-shadowJar {
-    archiveFileName = "${project.name}.jar"
-}
-
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        duplicatesStrategy DuplicatesStrategy.INCLUDE
-        filter ReplaceTokens, tokens: [version: version]
-    }
-}
-
-
-tasks.build.dependsOn tasks.shadowJar
