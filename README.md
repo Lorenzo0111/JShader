@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> Shade JavaScript engine in spigot servers
+>  A plugin/library to shade JavaScript engine inside your spigot server. You can also use this to shade your own class.
 
 ### 🏠 [Homepage](https://github.com/Lorenzo0111/JShader)
 
@@ -36,7 +36,7 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2021 [Lorenzo0111](https://github.com/Lorenzo0111).<br />
-This project is [MIT](https://github.com/Lorenzo0111/RocketPlaceholders/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/Lorenzo0111/JShader/blob/master/LICENSE) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
