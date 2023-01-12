@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly('org.jetbrains:annotations:23.0.0')
+    compileOnly('org.jetbrains:annotations:24.0.0')
     compileOnly('org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT')
     implementation('org.openjdk.nashorn:nashorn-core:15.3')
 }
