@@ -43,6 +43,9 @@ public class JShaderPlugin extends JavaPlugin {
     }
 
     public static JShaderPlugin getInstance() {
+        if (instance == null)
+            throw new IllegalStateException("The JShader plugin is not enabled yet!");
+
         return instance;
     }
 }
